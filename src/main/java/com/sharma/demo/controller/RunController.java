@@ -1,9 +1,17 @@
 package com.sharma.demo.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class RunController {
@@ -43,5 +51,12 @@ public class RunController {
     @PreAuthorize("hasRole('USER')")
     public String Gender() {
         return "This is a Gender page";
+    }
+
+    @GetMapping("/logout-now")
+    public void logoutNow(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException, ServletException {
+        new SecurityContextLogoutHandler().logout(request, response, authentication);
+        response.sendRedirect("/login?logout");
     }
 }

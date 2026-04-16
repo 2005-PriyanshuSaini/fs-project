@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -45,7 +44,7 @@ public class SecurityConfig {
 		http
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/login", "/logout", "/error").permitAll()
+						.requestMatchers("/login", "/logout", "/logout-now", "/error").permitAll()
 						.anyRequest().authenticated()
 				)
 				.formLogin(form -> form
@@ -53,7 +52,7 @@ public class SecurityConfig {
 						.permitAll()
 				)
 				.logout(logout -> logout
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+						.logoutUrl("/logout")
 						.logoutSuccessUrl("/login?logout")
 						.permitAll()
 				)
