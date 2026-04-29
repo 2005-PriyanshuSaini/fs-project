@@ -13,6 +13,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "fd_orders")
@@ -30,6 +32,9 @@ public class Order {
 	private Double totalAmount;
 
 	private String status;
+
+	@Transient
+	private String cacheStatus;
 
 	public Order() {
 	}
@@ -64,6 +69,15 @@ public class Order {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@JsonProperty("cacheStatus")
+	public String getCacheStatus() {
+		return cacheStatus;
+	}
+
+	public void setCacheStatus(String cacheStatus) {
+		this.cacheStatus = cacheStatus;
 	}
 }
 

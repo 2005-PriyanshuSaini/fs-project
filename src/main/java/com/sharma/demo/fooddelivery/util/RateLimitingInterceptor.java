@@ -20,6 +20,13 @@ public class RateLimitingInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+		// Requirement: remove rate limiting on GET APIs.
+		// Keep rate limiting for non-GET requests (e.g., POST /order).
+		String method = request.getMethod();
+		if (method != null && method.equalsIgnoreCase("GET")) {
+			return true;
+		}
+
 		String ip = request.getRemoteAddr();
 		if (ip == null || ip.isBlank()) {
 			ip = "unknown";
