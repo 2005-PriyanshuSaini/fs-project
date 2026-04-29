@@ -14,8 +14,8 @@ public class FoodDeliveryCacheConfig {
 
 	@Bean
 	CacheManager cacheManager() {
-		// Simple in-memory cache for order GETs.
-		return new ConcurrentMapCacheManager("orders");
+		// Simple in-memory cache for order GETs and book GETs.
+		return new ConcurrentMapCacheManager("orders", "books");
 	}
 }
 

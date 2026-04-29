@@ -1,0 +1,90 @@
+{
+  "info": {
+    "name": "Library Reservation (Observer + Cache + Rate Limit)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "username",
+      "value": "admin"
+    },
+    {
+      "key": "password",
+      "value": "admin@123"
+    }
+  ],
+  "item": [
+    {
+      "name": "POST /reservation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reservation",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reservation"
+          ]
+        },
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{username}}"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bookId\": 1,\n  \"studentId\": 10,\n  \"studentName\": \"Alice\"\n}"
+        }
+      }
+    },
+    {
+      "name": "GET /book/{id}",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/book/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "book",
+            "1"
+          ]
+        },
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{username}}"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+
